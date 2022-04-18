@@ -13,3 +13,12 @@ Currently available mods:
 * Better Furnace
 
   Change the speed of the Furnace with the Setting parameter
+
+* Efficient Tools
+  
+  Changes battery use of powered tools. Now each use require 360w of power (720w for the Arc Welder).
+  Battery Type | Uses
+  :---: | :---: 
+  Small Battery | ~ 100
+  Large Battery | ~ 800
+  Nuclear Battery | ~ 6400
