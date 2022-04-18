@@ -5,6 +5,8 @@ VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterFurnace", "BetterFurnace\BetterFurnace.csproj", "{DD6B3665-E36E-417C-B1C5-1C3999E98AEB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EfficientTools", "EfficientTools\EfficientTools.csproj", "{4B60F8AE-E1A6-4CB8-BEBC-6AF9E7640B97}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{DD6B3665-E36E-417C-B1C5-1C3999E98AEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD6B3665-E36E-417C-B1C5-1C3999E98AEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD6B3665-E36E-417C-B1C5-1C3999E98AEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B60F8AE-E1A6-4CB8-BEBC-6AF9E7640B97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B60F8AE-E1A6-4CB8-BEBC-6AF9E7640B97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B60F8AE-E1A6-4CB8-BEBC-6AF9E7640B97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B60F8AE-E1A6-4CB8-BEBC-6AF9E7640B97}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
