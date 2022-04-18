@@ -2,6 +2,7 @@
 using Assets.Scripts.Objects;
 using Assets.Scripts.Objects.Items;
 using Assets.Scripts.Objects.Pipes;
+using HarmonyLib;
 using Reagents;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,11 @@ using System.Threading.Tasks;
 
 namespace BetterFurnace
 {
-    public class Patches
+    [HarmonyPatch(typeof(FurnaceBase), nameof(FurnaceBase.Smelt))]
+    public class FurnaceBase_Smelt
     {
-        private static int MinSetting => Mod.Furnace_MinSetting.Value;
-        private static int MaxSetting => Mod.Furnace_MaxSetting.Value;
+        static int MinSetting => Mod.Furnace_MinSetting.Value;
+        static int MaxSetting => Mod.Furnace_MaxSetting.Value;
 
         /// <summary>
         /// Patches the FurnaceBase.Smelt method to read the Furnace data Setting and using it to speed up smelting time
@@ -25,7 +27,7 @@ namespace BetterFurnace
         /// <param name="___ReagentMixture">The FurnaceBase private field InternalAtmosphere</param>
         /// <param name="__result">The result to give to the original method</param>
         /// <returns>Skips the original method if false</returns>
-        public static bool Smelt_Patch(DynamicThing dynamicThing, FurnaceBase __instance, Atmosphere ___InternalAtmosphere, ReagentMixture ___ReagentMixture, ref bool __result)
+        static bool Prefix(DynamicThing dynamicThing, FurnaceBase __instance, Atmosphere ___InternalAtmosphere, ReagentMixture ___ReagentMixture, ref bool __result)
         {
             if (MinSetting > MaxSetting)
             {

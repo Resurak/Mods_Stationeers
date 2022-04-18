@@ -35,19 +35,15 @@ namespace BetterFurnace
             Log = base.Logger;
             Log.LogInfo("Loading mod");
 
+            // Load Configs
             Log.LogInfo("Loading config");
             LoadConfig();
 
             // Creating harmony instance
             Harmony harmony = new Harmony(pluginGuid);
 
-            // Getting original method from game and patched method
-            var smelt_original = typeof(FurnaceBase).GetMethod(nameof(FurnaceBase.Smelt));
-            var smelt_patched = typeof(Patches).GetMethod(nameof(Patches.Smelt_Patch));
-
-            // Patching 
-            Log.LogInfo("Patching FurnaceBase.Smelt");
-            harmony.Patch(smelt_original, prefix: new HarmonyMethod(smelt_patched));
+            Log.LogInfo("Patching");
+            harmony.PatchAll();
 
             Log.LogInfo("Loaded correclty");
         }

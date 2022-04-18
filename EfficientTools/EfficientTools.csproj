@@ -83,8 +83,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArcWeldingTool_OnPowerTick.cs" />
+    <Compile Include="MiningDrill_OnMinedOre.cs" />
     <Compile Include="Mod.cs" />
-    <Compile Include="Patches.cs" />
+    <Compile Include="PowerTool_OnUseItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
