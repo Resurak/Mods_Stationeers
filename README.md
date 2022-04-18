@@ -16,9 +16,13 @@ Currently available mods:
 
 * Efficient Tools
   
-  Changes battery use of powered tools. Now each use require 360w of power (720w for the Arc Welder).
-  Battery Type | Uses
-  :---: | :---: 
-  Small Battery | ~ 100
-  Large Battery | ~ 800
-  Nuclear Battery | ~ 6400
+  Changes battery use of powered tools. Now each use require 360w of power (720w for the Arc Welder and Mining Drill).
+  Battery Type | Uses (360w) | Uses (720w)
+  :---: | :---: | :---:
+  Small Battery | ~ 100 | ~ 50
+  Large Battery | ~ 800 | ~ 400
+  Nuclear Battery | ~ 6400 | ~ 3200
+
+##### Each mod has a config file located in <GameFolder>/BepInEx/config
+
+# **BEWARE OF BUGS, ALWAYS BACKUP EVERYTHING BEFORE INSTALLING MODS**
