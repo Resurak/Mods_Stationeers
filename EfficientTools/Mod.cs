@@ -2,6 +2,7 @@
 using System.Reflection;
 using Assets.Scripts.Objects.Items;
 using BepInEx;
+using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
 
@@ -15,6 +16,9 @@ namespace EfficientTools
 		public const string pluginName = "Efficient Tools";
 		public const string pluginVersion = "0.1";
 
+		public static ConfigEntry<float> PowerTool_PowerToUse;
+		public static ConfigEntry<float> ArcWelder_PowerToUse;
+
 		internal static ManualLogSource Log;
 
 		public void Awake()
@@ -22,6 +26,10 @@ namespace EfficientTools
 			// Creating logger
 			Log = base.Logger;
 			Log.LogInfo("Loading mod");
+
+			// Load configs
+			Log.LogInfo("Loading config");
+			LoadConfig();
 
 			// Creating harmony instance
 			Harmony harmony = new Harmony(pluginGuid);
@@ -50,5 +58,20 @@ namespace EfficientTools
 
 			Log.LogInfo("Loaded correclty");
 		}
+
+		public void LoadConfig()
+        {
+			PowerTool_PowerToUse = Config.Bind(
+				"Power",
+				"PowerTool_PowerToUse",
+				360f,
+				"Power usage of power tools (hand drill, mining drill, angle grinder)");
+
+			ArcWelder_PowerToUse = Config.Bind(
+				"Power",
+				"ArcWelder_PowerToUse",
+				720f,
+				"Power usage of Arc welder");
+        }
 	}
 }

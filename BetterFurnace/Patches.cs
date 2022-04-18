@@ -13,6 +13,9 @@ namespace BetterFurnace
 {
     public class Patches
     {
+        private static int MinSetting => Mod.Furnace_MinSetting.Value;
+        private static int MaxSetting => Mod.Furnace_MaxSetting.Value;
+
         /// <summary>
         /// Patches the FurnaceBase.Smelt method to read the Furnace data Setting and using it to speed up smelting time
         /// </summary>
@@ -24,17 +27,23 @@ namespace BetterFurnace
         /// <returns>Skips the original method if false</returns>
         public static bool Smelt_Patch(DynamicThing dynamicThing, FurnaceBase __instance, Atmosphere ___InternalAtmosphere, ReagentMixture ___ReagentMixture, ref bool __result)
         {
+            if (MinSetting > MaxSetting)
+            {
+                Mod.Log.LogFatal($"{nameof(Mod.Furnace_MinSetting)} is greater than {nameof(Mod.Furnace_MaxSetting)}, running default");
+                return true;
+            }
+
             // Getting the Setting output from the Furnace
             int setting = (int)Math.Round(__instance.OutputSetting);
 
             // Checking if Setting is valid
-            if (setting <= 0)
+            if (setting < MinSetting)
             {
-                setting = 1;
+                setting = MinSetting;
             }
-            else if (setting >= 200)
+            else if (setting >= MaxSetting)
             {
-                setting = 200;
+                setting = MaxSetting;
             }
 
             // Starting loop
