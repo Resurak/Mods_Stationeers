@@ -15,6 +15,7 @@ namespace BetterFurnace
     [HarmonyPatch(typeof(FurnaceBase), nameof(FurnaceBase.Smelt))]
     public class FurnaceBase_Smelt
     {
+        static bool warned = false;
         static int MinSetting => Mod.Furnace_MinSetting.Value;
         static int MaxSetting => Mod.Furnace_MaxSetting.Value;
 
@@ -29,9 +30,11 @@ namespace BetterFurnace
         /// <returns>Skips the original method if false</returns>
         static bool Prefix(DynamicThing dynamicThing, FurnaceBase __instance, Atmosphere ___InternalAtmosphere, ReagentMixture ___ReagentMixture, ref bool __result)
         {
-            if (MinSetting > MaxSetting)
+            // Checking if config is not invalid
+            if (!warned && MinSetting > MaxSetting)
             {
                 Mod.Log.LogFatal($"{nameof(Mod.Furnace_MinSetting)} is greater than {nameof(Mod.Furnace_MaxSetting)}, running default");
+                warned = true;
                 return true;
             }
 
@@ -43,7 +46,7 @@ namespace BetterFurnace
             {
                 setting = MinSetting;
             }
-            else if (setting >= MaxSetting)
+            else if (setting > MaxSetting)
             {
                 setting = MaxSetting;
             }
