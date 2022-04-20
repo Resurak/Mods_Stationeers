@@ -17,10 +17,11 @@ namespace EfficientDevices
         // Plugin info
         public const string pluginGuid = "resurak.EfficientDevices";
         public const string pluginName = "Efficient Devices";
-        public const string pluginVersion = "0.3";
+        public const string pluginVersion = "0.6";
 
         // Plugin config values
-
+        public static ConfigEntry<float> AirConditioner_MaxPower;
+        public static ConfigEntry<float> TurboVolumePump_MaxPower;
 
         // Mod logger
         internal static ManualLogSource Log;
@@ -49,7 +50,17 @@ namespace EfficientDevices
 
         public void LoadConfig()
         {
+            AirConditioner_MaxPower = Config.Bind(
+                "Power AirConditioner",
+                "Max Power",
+                10f,
+                "Max power draw of the Air Conditioner");
 
+            TurboVolumePump_MaxPower = Config.Bind(
+                "Power TurboVolumePump(Gas)",
+                "Max Power",
+                200f,
+                "Max power draw of the Turbo Volume Pump (Gas)");
         }
     }
 }

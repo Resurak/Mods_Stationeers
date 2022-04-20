@@ -83,8 +83,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AirConditioner_GetUsedPower.cs" />
     <Compile Include="Cable_Constructor.cs" />
     <Compile Include="Mod.cs" />
+    <Compile Include="PowerTick_ConsumePower.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TurboVolumePump_GetUsedPower.cs" />
   </ItemGroup>
