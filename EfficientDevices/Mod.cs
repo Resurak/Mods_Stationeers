@@ -53,7 +53,7 @@ namespace EfficientDevices
             AirConditioner_MaxPower = Config.Bind(
                 "Power AirConditioner",
                 "Max Power",
-                10f,
+                1500f,
                 "Max power draw of the Air Conditioner");
 
             TurboVolumePump_MaxPower = Config.Bind(
