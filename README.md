@@ -23,6 +23,14 @@ Currently available mods:
   Large Battery | ~ 800 | ~ 400
   Nuclear Battery | ~ 6400 | ~ 3200
 
+* Efficient Devices
+  
+  Changes minimum and maximum power use of devices. Optional configurable cable voltage
+  Device | Min power | Max power
+  :---: | :---: | :---:
+  Air Conditioner | 100 | 1500
+  Turbo Pump (Gas) | 50 | 200
+  
 ##### Each mod has a config file located in <GameFolder>/BepInEx/config
 
 # **BEWARE OF BUGS, ALWAYS BACKUP EVERYTHING BEFORE INSTALLING MODS**
