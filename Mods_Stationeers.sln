@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EfficientTools", "Efficient
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EfficientDevices", "EfficientDevices\EfficientDevices.csproj", "{7C6407AF-BE6A-4616-8A39-3F1F6ECA3679}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{5B523AEB-A4BB-4D4A-8102-6F57FB945A9D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{7C6407AF-BE6A-4616-8A39-3F1F6ECA3679}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C6407AF-BE6A-4616-8A39-3F1F6ECA3679}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C6407AF-BE6A-4616-8A39-3F1F6ECA3679}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B523AEB-A4BB-4D4A-8102-6F57FB945A9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B523AEB-A4BB-4D4A-8102-6F57FB945A9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B523AEB-A4BB-4D4A-8102-6F57FB945A9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B523AEB-A4BB-4D4A-8102-6F57FB945A9D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -17,11 +17,11 @@ namespace BetterFurnace
         // Plugin info
         public const string pluginGuid = "resurak.BetterFurnace";
         public const string pluginName = "Better Furnace";
-        public const string pluginVersion = "0.4";
+        public const string pluginVersion = "0.8";
 
         // Plugin config values
-        public static ConfigEntry<int> Furnace_MinSetting;
-        public static ConfigEntry<int> Furnace_MaxSetting;
+        public static ConfigEntry<float> Furnace_MinSetting;
+        public static ConfigEntry<float> Furnace_MaxSetting;
 
         // Mod logger
         internal static ManualLogSource Log;
@@ -53,13 +53,13 @@ namespace BetterFurnace
             Furnace_MinSetting = Config.Bind(
                 "Furnace",
                 "Furnace_MinSetting",
-                10,
+                1f,
                 "Min Setting value of the furnace");
 
             Furnace_MaxSetting = Config.Bind(
                 "Furnace",
                 "Furnace_MaxSetting",
-                200,
+                10f,
                 "Max Setting value of the furnace");
         }
     }

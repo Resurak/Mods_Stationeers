@@ -9,12 +9,12 @@ using HarmonyLib;
 namespace EfficientTools
 {
 	// Token: 0x02000002 RID: 2
-	[BepInPlugin("resurak.EfficientTools", "Efficient Tools", "0.1")]
+	[BepInPlugin(pluginGuid, pluginName, pluginVersion)]
 	public class Mod : BaseUnityPlugin
 	{
 		public const string pluginGuid = "resurak.EfficientTools";
 		public const string pluginName = "Efficient Tools";
-		public const string pluginVersion = "0.1";
+		public const string pluginVersion = "0.3";
 
 		public static ConfigEntry<float> PowerTool_PowerToUse;
 		public static ConfigEntry<float> ArcWelder_PowerToUse;

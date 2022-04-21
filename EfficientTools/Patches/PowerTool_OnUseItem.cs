@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EfficientTools
+namespace EfficientTools.Patches
 {
     [HarmonyPatch(typeof(PowerTool), nameof(PowerTool.OnUseItem))]
     public class PowerTool_OnUseItem

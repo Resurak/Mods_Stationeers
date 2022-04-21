@@ -83,10 +83,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FurnaceBase_Constructor.cs" />
-    <Compile Include="FurnaceBase_Smelt.cs" />
+    <Compile Include="Patches\FurnaceBase_Constructor.cs" />
+    <Compile Include="Patches\FurnaceBase_Smelt.cs" />
     <Compile Include="Mod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{5B523AEB-A4BB-4D4A-8102-6F57FB945A9D}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

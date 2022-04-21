@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace EfficientDevices
+namespace EfficientDevices.Patches
 {
     [HarmonyPatch(typeof(PowerTick), "ConsumePower")]
     public class PowerTick_ConsumePower

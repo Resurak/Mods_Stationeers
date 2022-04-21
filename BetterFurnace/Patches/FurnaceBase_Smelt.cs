@@ -2,6 +2,7 @@
 using Assets.Scripts.Objects;
 using Assets.Scripts.Objects.Items;
 using Assets.Scripts.Objects.Pipes;
+using Core;
 using HarmonyLib;
 using Reagents;
 using System;
@@ -10,14 +11,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BetterFurnace
+namespace BetterFurnace.Patches
 {
     [HarmonyPatch(typeof(FurnaceBase), nameof(FurnaceBase.Smelt))]
     public class FurnaceBase_Smelt
     {
-        static bool warned = false;
-        static int MinSetting => Mod.Furnace_MinSetting.Value;
-        static int MaxSetting => Mod.Furnace_MaxSetting.Value;
+        static bool validConfig = false;
+        static bool checkedConfig = false;
+
+        static MinMax Power => MinMax.New(Mod.Furnace_MinSetting, Mod.Furnace_MaxSetting);
 
         /// <summary>
         /// Patches the FurnaceBase.Smelt method to read the Furnace data Setting and using it to speed up smelting time
@@ -30,25 +32,26 @@ namespace BetterFurnace
         /// <returns>Skips the original method if false</returns>
         static bool Prefix(DynamicThing dynamicThing, FurnaceBase __instance, Atmosphere ___InternalAtmosphere, ReagentMixture ___ReagentMixture, ref bool __result)
         {
-            // Checking if config is not invalid
-            if (!warned && MinSetting > MaxSetting)
+            // Checking config
+            if (!checkedConfig)
             {
-                Mod.Log.LogFatal($"{nameof(Mod.Furnace_MinSetting)} is greater than {nameof(Mod.Furnace_MaxSetting)}, running default");
-                warned = true;
-                return true;
+                validConfig = Utils.ConfigIsValid(typeof(FurnaceBase_Smelt), Power);
+                checkedConfig = true;
             }
 
             // Getting the Setting output from the Furnace
-            int setting = (int)Math.Round(__instance.OutputSetting);
+            float setting = (float)Math.Round(__instance.OutputSetting);
 
-            // Checking if Setting is valid
-            if (setting < MinSetting)
+            // Checking if config is valid
+            if (validConfig)
             {
-                setting = MinSetting;
+                Utils.AssignMinMax(ref setting, Power);
             }
-            else if (setting > MaxSetting)
+
+            // More checking for invalid min setting
+            if (setting < 1)
             {
-                setting = MaxSetting;
+                setting = 1;
             }
 
             // Starting loop
@@ -65,7 +68,7 @@ namespace BetterFurnace
                     #endif
 
                     __result = false;
-                    break;
+                    return false;
                 }
                 if (size.GetQuantity == 0)
                 {
@@ -74,12 +77,13 @@ namespace BetterFurnace
                     #endif
 
                     __result = false;
-                    break;
+                    return false;
                 }
 
                 // Calling original DynamicThing.Smelt method
                 dynamicThing.Smelt(___InternalAtmosphere, ___ReagentMixture);
             }
+
             __result = true;
             return false;
         }

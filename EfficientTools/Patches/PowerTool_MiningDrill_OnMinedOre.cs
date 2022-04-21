@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EfficientTools
+namespace EfficientTools.Patches
 {
     [HarmonyPatch(typeof(MiningDrill), nameof(MiningDrill.OnMinedOre))]
-    public class MiningDrill_OnMinedOre
+    public class PowerTool_MiningDrill_OnMinedOre
     {
         protected internal static float storedPower = 0f;
 

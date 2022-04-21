@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EfficientDevices
+namespace EfficientDevices.Patches
 {
     [HarmonyPatch(typeof(Cable), MethodType.Constructor)]
     public class Cable_Constructor

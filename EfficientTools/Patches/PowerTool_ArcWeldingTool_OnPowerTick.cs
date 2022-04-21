@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EfficientTools
+namespace EfficientTools.Patches
 {
     [HarmonyPatch(typeof(ArcWeldingTool), nameof(ArcWeldingTool.OnPowerTick))]
-    public class ArcWeldingTool_OnPowerTick
+    public class PowerTool_ArcWeldingTool_OnPowerTick
     {
         static void Prefix(ArcWeldingTool __instance)
         {
