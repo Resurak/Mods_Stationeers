@@ -14,7 +14,7 @@ namespace Core
     {
         // Plugin info
         public const string pluginGuid = "resurak.Core";
-        public const string pluginName = "Resurak Core";
+        public const string pluginName = "Resurak Mod Core";
         public const string pluginVersion = "0.3";
 
         // Mod logger

@@ -16,8 +16,6 @@ namespace BetterFurnace.Patches
     [HarmonyPatch(typeof(FurnaceBase), nameof(FurnaceBase.Smelt))]
     public class FurnaceBase_Smelt
     {
-        static MinMaxConfig Config => new MinMaxConfig(Mod.Furnace_MinSetting, Mod.Furnace_MaxSetting);
-
         /// <summary>
         /// Patches the FurnaceBase.Smelt method to read the Furnace data Setting and using it to speed up smelting time
         /// </summary>
@@ -32,8 +30,7 @@ namespace BetterFurnace.Patches
             // Getting the Setting output from the Furnace
             float setting = (float)Math.Round(__instance.OutputSetting);
 
-            Config.CheckConfig(nameof(FurnaceBase_Smelt));
-            Config.Assign(ref setting);
+            Utils.MinMax(ref setting, Mod.Furnace_Config);
 
             // More checking for invalid min setting
             if (setting < 1)

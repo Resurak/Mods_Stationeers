@@ -16,9 +16,6 @@ namespace EfficientDevices.Patches
     [HarmonyPatch(typeof(PowerTick), "ConsumePower")]
     public class PowerTick_ConsumePower
     {
-        static MinMaxConfig AirCond_Config => new MinMaxConfig(Mod.AirConditioner_MinPower, Mod.AirConditioner_MaxPower);
-        static MinMaxConfig TurboPump_Config => new MinMaxConfig(Mod.TurboVolumePump_MinPower, Mod.TurboVolumePump_MaxPower);
-
         /// <summary>
         /// Patches PowerTick.ConsumePower to change the powerRequired parameter without modifying the original method (it causes bugs)
         /// </summary>
@@ -29,14 +26,12 @@ namespace EfficientDevices.Patches
         {
             if (device is TurboVolumePump)
             {
-                TurboPump_Config.CheckConfig(nameof(PowerTick_ConsumePower));
-                TurboPump_Config.Assign(ref powerRequired);
+                Utils.MinMax(ref powerRequired, Mod.TurboVolumePump_Config);
             }
 
             if (device is AirConditioner)
             {
-                AirCond_Config.CheckConfig(nameof(PowerTick_ConsumePower));
-                AirCond_Config.Assign(ref powerRequired);
+                Utils.MinMax(ref powerRequired, Mod.AirConditioner_Config);
             }
 		}
     }

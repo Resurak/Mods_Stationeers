@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Core</RootNamespace>
-    <AssemblyName>Core</AssemblyName>
+    <AssemblyName>resurak.Core</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -86,7 +86,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MinMaxConfig.cs" />
+    <Compile Include="ConfigMinMax.cs" />
     <Compile Include="Mod.cs" />
     <Compile Include="MinMax.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

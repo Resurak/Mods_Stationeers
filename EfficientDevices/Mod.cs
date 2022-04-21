@@ -1,11 +1,15 @@
-﻿using Assets.Scripts.Objects.Pipes;
+﻿using Assets.Scripts.Objects.Electrical;
+using Assets.Scripts.Objects.Pipes;
 using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
+using Core;
 using HarmonyLib;
+using Objects.Pipes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,9 +28,11 @@ namespace EfficientDevices
 
         public static ConfigEntry<float> AirConditioner_MinPower;
         public static ConfigEntry<float> AirConditioner_MaxPower;
+        public static ConfigMinMax AirConditioner_Config;
 
         public static ConfigEntry<float> TurboVolumePump_MinPower;
         public static ConfigEntry<float> TurboVolumePump_MaxPower;
+        public static ConfigMinMax TurboVolumePump_Config;
 
         // Mod logger
         internal static ManualLogSource Log;
@@ -92,6 +98,12 @@ namespace EfficientDevices
                 200f,
                 "Max power draw of the Turbo Volume Pump (Gas)");
             Log.LogInfo($"{nameof(TurboVolumePump_MaxPower)} = {TurboVolumePump_MaxPower.Value}");
+
+            AirConditioner_Config = new ConfigMinMax(AirConditioner_MinPower, AirConditioner_MaxPower);
+            AirConditioner_Config.CheckConfig(nameof(AirConditioner_Config));
+
+            TurboVolumePump_Config = new ConfigMinMax(TurboVolumePump_MinPower, TurboVolumePump_MaxPower);
+            TurboVolumePump_Config.CheckConfig(nameof(TurboVolumePump_Config));
         }
 
         public void Patch()

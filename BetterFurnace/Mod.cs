@@ -2,6 +2,7 @@
 using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
+using Core;
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
@@ -17,9 +18,10 @@ namespace BetterFurnace
         // Plugin info
         public const string pluginGuid = "resurak.BetterFurnace";
         public const string pluginName = "Better Furnace";
-        public const string pluginVersion = "0.8";
+        public const string pluginVersion = "0.9";
 
         // Plugin config values
+        public static ConfigMinMax Furnace_Config;
         public static ConfigEntry<float> Furnace_MinSetting;
         public static ConfigEntry<float> Furnace_MaxSetting;
 
@@ -66,6 +68,16 @@ namespace BetterFurnace
                 100f,
                 "Max Setting value of the furnace");
             Log.LogInfo($"{nameof(Furnace_MaxSetting)} = {Furnace_MaxSetting.Value}");
+
+            Furnace_Config = new ConfigMinMax(Furnace_MinSetting, Furnace_MaxSetting);
+            try
+            {
+                Furnace_Config.CheckConfig(nameof(Furnace_Config));
+            }
+            catch (Exception ex)
+            {
+                Mod.Log.LogError("Exception thrown while checking config. Exception: " + ex.ToString());
+            }
         }
 
         public void Patch()

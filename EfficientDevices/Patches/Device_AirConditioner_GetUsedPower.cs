@@ -13,8 +13,6 @@ namespace EfficientDevices.Patches
     [HarmonyPatch(typeof(AirConditioner), nameof(AirConditioner.GetUsedPower))]
     public class Device_AirConditioner_GetUsedPower
     {
-        static MinMaxConfig Config => new MinMaxConfig(Mod.AirConditioner_MinPower, Mod.AirConditioner_MaxPower);
-
         /// <summary>
         /// Patches AirConditioner.GetUsedPower to diplay the correct value
         /// </summary>
@@ -22,8 +20,7 @@ namespace EfficientDevices.Patches
         /// <param name="__result"></param>
         static void Postfix(CableNetwork cableNetwork, ref float __result)
         {
-            Config.CheckConfig(nameof(Device_AirConditioner_GetUsedPower));
-            Config.Assign(ref __result);
+            Utils.MinMax(ref __result, Mod.AirConditioner_Config);
         }
     }
 }

@@ -31,28 +31,19 @@ namespace Core
             return !flag1 && !flag2;
         }
 
-        public static bool MinMaxValid(float min, float max) =>
-            min >= max;
-
-        public static void AssignMinMax(ref float value, float min, float max)
+        public static void MinMax(ref float value, ConfigMinMax config)
         {
-            if (MinMaxValid(min, max))
+            if (config.ConfigValid)
             {
-                if (value < min)
+                if (value < config.Values.Min)
                 {
-                    value = min;
+                    value = config.Values.Min;
                 }
-                else if (value > max)
+                else if (value > config.Values.Max)
                 {
-                    value = max;
+                    value = config.Values.Max;
                 }
             }
         }
-
-        public static void AssignMinMax(ref float value, MinMax minMax) =>
-            AssignMinMax(ref value, minMax.Min, minMax.Max);
-
-        public static void AssignMinMax(ref float value, ConfigEntry<float> min, ConfigEntry<float> max) =>
-            AssignMinMax(ref value, min.Value, max.Value);
     }
 }
