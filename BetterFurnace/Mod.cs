@@ -32,35 +32,48 @@ namespace BetterFurnace
         public void Awake()
         {
             // Creating logger
-            Log = base.Logger;
-            Log.LogInfo("Loading mod");
+            CreateLogger();
 
-            // Load Configs
-            Log.LogInfo("Loading config");
+            // Load configs
             LoadConfig();
 
-            // Creating harmony instance
-            Harmony harmony = new Harmony(pluginGuid);
+            // Harmony patches
+            Patch();
 
-            Log.LogInfo("Patching");
-            harmony.PatchAll();
+            Log.LogInfo("Mod loaded correclty");
+        }
 
-            Log.LogInfo("Loaded correclty");
+        public void CreateLogger()
+        {
+            Log = base.Logger;
+            Log.LogInfo("Loading mod");
         }
 
         public void LoadConfig()
         {
+            Log.LogInfo("Loading config");
+
             Furnace_MinSetting = Config.Bind(
                 "Furnace",
-                "Furnace_MinSetting",
+                "Min Setting",
                 1f,
                 "Min Setting value of the furnace");
+            Log.LogInfo($"{nameof(Furnace_MinSetting)} = {Furnace_MinSetting.Value}");
 
             Furnace_MaxSetting = Config.Bind(
                 "Furnace",
-                "Furnace_MaxSetting",
-                10f,
+                "Max Setting",
+                100f,
                 "Max Setting value of the furnace");
+            Log.LogInfo($"{nameof(Furnace_MaxSetting)} = {Furnace_MaxSetting.Value}");
+        }
+
+        public void Patch()
+        {
+            Log.LogInfo("Patching");
+
+            Harmony harmony = new Harmony(pluginGuid);
+            harmony.PatchAll();
         }
     }
 }

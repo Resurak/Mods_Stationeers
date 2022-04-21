@@ -11,6 +11,10 @@ namespace EfficientDevices.Patches
     [HarmonyPatch(typeof(Cable), MethodType.Constructor)]
     public class Cable_Constructor
     {
+        /// <summary>
+        /// Patches Cable constructor to set the Cable.MaxVoltage to 10000
+        /// </summary>
+        /// <param name="__instance"></param>
         static void Postfix(Cable __instance)
         {
             __instance.MaxVoltage = 10000f;

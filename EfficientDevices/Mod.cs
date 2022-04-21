@@ -35,47 +35,62 @@ namespace EfficientDevices
         public void Awake()
         {
             // Creating logger
-            Log = base.Logger;
-            Log.LogInfo("Loading mod");
+            CreateLogger();
 
-            // Load Configs
-            Log.LogInfo("Loading config");
+            // Load configs
             LoadConfig();
 
-            // Creating harmony instance
-            Harmony harmony = new Harmony(pluginGuid);
+            // Harmony patches
+            Patch();
 
-            Log.LogInfo("Patching");
-            harmony.PatchAll();
+            Log.LogInfo("Mod loaded correclty");
+        }
 
-            Log.LogInfo("Loaded correclty");
+        public void CreateLogger()
+        {
+            Log = base.Logger;
+            Log.LogInfo("Loading mod");
         }
 
         public void LoadConfig()
         {
+            Log.LogInfo("Loading config");
+
             AirConditioner_MinPower = Config.Bind(
-                "Power AirConditioner",
+                "Air Conditioner",
                 "Min Power",
                 100f,
                 "Min power draw of the Air Conditioner");
+            Log.LogInfo($"{nameof(AirConditioner_MinPower)} = {AirConditioner_MinPower.Value}");
 
             AirConditioner_MaxPower = Config.Bind(
-                "Power AirConditioner",
+                "Air Conditioner",
                 "Max Power",
                 1500f,
                 "Max power draw of the Air Conditioner");
+            Log.LogInfo($"{nameof(AirConditioner_MaxPower)} = {AirConditioner_MaxPower.Value}");
 
-            TurboVolumePump_MaxPower = Config.Bind(
-                "Power TurboVolumePump(Gas)",
+            TurboVolumePump_MinPower = Config.Bind(
+                "Turbo Volume Pump (Gas)",
                 "Min Power",
                 50f,
                 "Min power draw of the Turbo Volume Pump (Gas)");
+            Log.LogInfo($"{nameof(TurboVolumePump_MinPower)} = {TurboVolumePump_MinPower.Value}");
 
             TurboVolumePump_MaxPower = Config.Bind(
-                "Power TurboVolumePump(Gas)",
+                "Turbo Volume Pump (Gas)",
                 "Max Power",
                 200f,
                 "Max power draw of the Turbo Volume Pump (Gas)");
+            Log.LogInfo($"{nameof(TurboVolumePump_MaxPower)} = {TurboVolumePump_MaxPower.Value}");
+        }
+
+        public void Patch()
+        {
+            Log.LogInfo("Patching");
+
+            Harmony harmony = new Harmony(pluginGuid);
+            harmony.PatchAll();
         }
     }
 }

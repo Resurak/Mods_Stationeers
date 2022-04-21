@@ -13,10 +13,7 @@ namespace EfficientDevices.Patches
     [HarmonyPatch(typeof(TurboVolumePump), nameof(TurboVolumePump.GetUsedPower))]
     public class Device_TurboVolumePump_GetUsedPower
     {
-        static bool validConfig = false;
-        static bool checkedConfig = false;
-
-        static MinMax Power => MinMax.New(Mod.TurboVolumePump_MinPower, Mod.TurboVolumePump_MaxPower);
+        static MinMaxConfig Config => new MinMaxConfig(Mod.TurboVolumePump_MinPower, Mod.TurboVolumePump_MaxPower);
 
         /// <summary>
         /// Patches TurboVolumePump.GetUsedPower to diplay the correct value
@@ -25,16 +22,8 @@ namespace EfficientDevices.Patches
         /// <param name="__result"></param>
         static void Postfix(CableNetwork cableNetwork, ref float __result)
         {
-            if (!checkedConfig)
-            {
-                validConfig = Utils.ConfigIsValid(typeof(Device_TurboVolumePump_GetUsedPower), Power);
-                checkedConfig = true;
-            }
-
-            if (validConfig)
-            {
-                Utils.AssignMinMax(ref __result, Power);
-            }
+            Config.CheckConfig(nameof(Device_TurboVolumePump_GetUsedPower));
+            Config.Assign(ref __result);
         }
     }
 }

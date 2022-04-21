@@ -13,10 +13,7 @@ namespace EfficientDevices.Patches
     [HarmonyPatch(typeof(AirConditioner), nameof(AirConditioner.GetUsedPower))]
     public class Device_AirConditioner_GetUsedPower
     {
-        static bool validConfig = false;
-        static bool checkedConfig = false;
-
-        static MinMax Power => MinMax.New(Mod.AirConditioner_MinPower, Mod.AirConditioner_MaxPower);
+        static MinMaxConfig Config => new MinMaxConfig(Mod.AirConditioner_MinPower, Mod.AirConditioner_MaxPower);
 
         /// <summary>
         /// Patches AirConditioner.GetUsedPower to diplay the correct value
@@ -25,16 +22,8 @@ namespace EfficientDevices.Patches
         /// <param name="__result"></param>
         static void Postfix(CableNetwork cableNetwork, ref float __result)
         {
-            if (!checkedConfig)
-            {
-                validConfig = Utils.ConfigIsValid(typeof(Device_AirConditioner_GetUsedPower), Power);
-                checkedConfig = true;
-            }
-
-            if (validConfig)
-            {
-                Utils.AssignMinMax(ref __result, Power);
-            }
+            Config.CheckConfig(nameof(Device_AirConditioner_GetUsedPower));
+            Config.Assign(ref __result);
         }
     }
 }

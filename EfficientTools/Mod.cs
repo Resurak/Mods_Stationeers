@@ -14,7 +14,7 @@ namespace EfficientTools
 	{
 		public const string pluginGuid = "resurak.EfficientTools";
 		public const string pluginName = "Efficient Tools";
-		public const string pluginVersion = "0.3";
+		public const string pluginVersion = "0.6";
 
 		public static ConfigEntry<float> PowerTool_PowerToUse;
 		public static ConfigEntry<float> ArcWelder_PowerToUse;
@@ -22,44 +22,61 @@ namespace EfficientTools
 
 		internal static ManualLogSource Log;
 
+		/// <summary>
+		/// Called on mod load
+		/// </summary>
 		public void Awake()
 		{
 			// Creating logger
-			Log = base.Logger;
-			Log.LogInfo("Loading mod");
+			CreateLogger();
 
 			// Load configs
-			Log.LogInfo("Loading config");
 			LoadConfig();
 
-			// Creating harmony instance
-			Harmony harmony = new Harmony(pluginGuid);
+			// Harmony patches
+			Patch();
 
-			Log.LogInfo("Patching");
-			harmony.PatchAll();
+			Log.LogInfo("Mod loaded correclty");
+		}
 
-			Log.LogInfo("Loaded correclty");
+		public void CreateLogger()
+        {
+			Log = base.Logger;
+			Log.LogInfo("Loading mod");
 		}
 
 		public void LoadConfig()
         {
+			Log.LogInfo("Loading config");
+
 			PowerTool_PowerToUse = Config.Bind(
-				"Power",
-				"PowerTool",
+				"Power Tool",
+				"Power used",
 				360f,
 				"Power usage of power tools (hand drill, angle grinder)");
+			Log.LogInfo($"{nameof(PowerTool_PowerToUse)} = {PowerTool_PowerToUse.Value}");
 
 			ArcWelder_PowerToUse = Config.Bind(
-				"Power",
-				"Arc welder",
+				"Arc Welder",
+				"Power used",
 				720f,
 				"Power usage of arc welder");
+			Log.LogInfo($"{nameof(ArcWelder_PowerToUse)} = {ArcWelder_PowerToUse.Value}");
 
 			MiningDrill_PowerToUse = Config.Bind(
-				"Power",
-				"Mining drill",
+				"Mining Drill",
+				"Power used",
 				720f,
 				"Power usage of mining drill");
-        }
+			Log.LogInfo($"{nameof(MiningDrill_PowerToUse)} = {MiningDrill_PowerToUse.Value}");
+		}
+
+		public void Patch()
+        {
+			Log.LogInfo("Patching");
+
+			Harmony harmony = new Harmony(pluginGuid);
+			harmony.PatchAll();
+		}
 	}
 }

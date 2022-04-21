@@ -15,28 +15,45 @@ namespace Core
         // Plugin info
         public const string pluginGuid = "resurak.Core";
         public const string pluginName = "Resurak Core";
-        public const string pluginVersion = "0.1";
+        public const string pluginVersion = "0.3";
 
         // Mod logger
         public static ManualLogSource Log;
 
+        /// <summary>
+        /// Called on mod load
+        /// </summary>
         public void Awake()
         {
             // Creating logger
+            CreateLogger();
+
+            // Load configs
+            LoadConfig();
+
+            // Harmony patches
+            Patch();
+
+            Log.LogInfo("Mod loaded correclty");
+        }
+
+        public void CreateLogger()
+        {
             Log = base.Logger;
             Log.LogInfo("Loading mod");
+        }
 
-            // Load Configs
-            //Log.LogInfo("Loading config");
-            //LoadConfig();
+        public void LoadConfig()
+        {
+            Log.LogInfo("No config to load");
+        }
 
-            // Creating harmony instance
-            //Harmony harmony = new Harmony(pluginGuid);
+        public void Patch()
+        {
+            Log.LogInfo("Patching");
 
-            //Log.LogInfo("Patching");
-            //harmony.PatchAll();
-
-            Log.LogInfo("Loaded correclty");
+            Harmony harmony = new Harmony(pluginGuid);
+            harmony.PatchAll();
         }
     }
 }

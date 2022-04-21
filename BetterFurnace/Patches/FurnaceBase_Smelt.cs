@@ -16,10 +16,7 @@ namespace BetterFurnace.Patches
     [HarmonyPatch(typeof(FurnaceBase), nameof(FurnaceBase.Smelt))]
     public class FurnaceBase_Smelt
     {
-        static bool validConfig = false;
-        static bool checkedConfig = false;
-
-        static MinMax Power => MinMax.New(Mod.Furnace_MinSetting, Mod.Furnace_MaxSetting);
+        static MinMaxConfig Config => new MinMaxConfig(Mod.Furnace_MinSetting, Mod.Furnace_MaxSetting);
 
         /// <summary>
         /// Patches the FurnaceBase.Smelt method to read the Furnace data Setting and using it to speed up smelting time
@@ -32,21 +29,11 @@ namespace BetterFurnace.Patches
         /// <returns>Skips the original method if false</returns>
         static bool Prefix(DynamicThing dynamicThing, FurnaceBase __instance, Atmosphere ___InternalAtmosphere, ReagentMixture ___ReagentMixture, ref bool __result)
         {
-            // Checking config
-            if (!checkedConfig)
-            {
-                validConfig = Utils.ConfigIsValid(typeof(FurnaceBase_Smelt), Power);
-                checkedConfig = true;
-            }
-
             // Getting the Setting output from the Furnace
             float setting = (float)Math.Round(__instance.OutputSetting);
 
-            // Checking if config is valid
-            if (validConfig)
-            {
-                Utils.AssignMinMax(ref setting, Power);
-            }
+            Config.CheckConfig(nameof(FurnaceBase_Smelt));
+            Config.Assign(ref setting);
 
             // More checking for invalid min setting
             if (setting < 1)

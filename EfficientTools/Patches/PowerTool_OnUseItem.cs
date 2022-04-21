@@ -14,11 +14,23 @@ namespace EfficientTools.Patches
     {
         protected internal static float storedPower = 0f;
 
+        /// <summary>
+        /// Patches PowerTool.OnUseItem to store current battery charge
+        /// </summary>
+        /// <param name="quantity"></param>
+        /// <param name="onUseThing"></param>
+        /// <param name="__instance"></param>
         static void Prefix(float quantity, Thing onUseThing, PowerTool __instance)
         {
             storedPower = __instance.Battery.PowerStored;
         }
 
+        /// <summary>
+        /// Patches PowerTool.OnUseItem to restore the previous stored power and subtract the configured mod value
+        /// </summary>
+        /// <param name="quantity"></param>
+        /// <param name="onUseThing"></param>
+        /// <param name="__instance"></param>
         static void Postfix(float quantity, Thing onUseThing, PowerTool __instance)
         {
             __instance.Battery.PowerStored = storedPower;
