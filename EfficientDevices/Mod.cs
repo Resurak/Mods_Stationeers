@@ -20,6 +20,8 @@ namespace EfficientDevices
         public const string pluginVersion = "0.8";
 
         // Plugin config values
+        public static ConfigEntry<float> Cable_MaxVoltage;
+
         public static ConfigEntry<float> AirConditioner_MinPower;
         public static ConfigEntry<float> AirConditioner_MaxPower;
 
@@ -55,6 +57,13 @@ namespace EfficientDevices
         public void LoadConfig()
         {
             Log.LogInfo("Loading config");
+
+            Cable_MaxVoltage = Config.Bind(
+                "Cable",
+                "Max voltage",
+                5000f,
+                "Max voltage that a cable can absorb");
+            Log.LogInfo($"{nameof(Cable_MaxVoltage)} = {Cable_MaxVoltage.Value}");
 
             AirConditioner_MinPower = Config.Bind(
                 "Air Conditioner",
