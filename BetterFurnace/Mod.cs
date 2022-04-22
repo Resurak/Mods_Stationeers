@@ -17,10 +17,10 @@ namespace BetterFurnace
 
         // Plugin configs
         public static ConfigHandler ConfigHandler;
-        public static ConfigMinMax Furnace_MinMax;
 
         public static ConfigFloat Furnace_MinSetting;
         public static ConfigFloat Furnace_MaxSetting;
+        public static ConfigMinMax Furnace_MinMax;
 
         // Plugin logger
         internal static ManualLogSource Log;

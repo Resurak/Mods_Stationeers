@@ -8,7 +8,7 @@ namespace Core.Config
 {
     public class ConfigBase
     {
-        public ConfigBase(string key, string section, string description)
+        public ConfigBase(string section, string key, string description)
         {
             this.Key = key;
             this.Section = section;

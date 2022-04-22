@@ -13,7 +13,7 @@ namespace EfficientDevices
         public const string coreGuid = "resurak.Core";
         public const string pluginGuid = "resurak.EfficientDevices";
         public const string pluginName = "Efficient Devices";
-        public const string pluginVersion = "0.9";
+        public const string pluginVersion = "0.10";
 
         // Plugin configs
         public static ConfigHandler ConfigHandler;
