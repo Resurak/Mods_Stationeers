@@ -1,12 +1,5 @@
 ﻿using BepInEx;
-using BepInEx.Logging;
 using Core.Shared;
-using HarmonyLib;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Core
 {
@@ -16,7 +9,11 @@ namespace Core
         // Plugin info
         public const string pluginGuid = "resurak.Core";
         public const string pluginName = "Resurak Mod Core";
-        public const string pluginVersion = "0.6";
+        public const string pluginVersion = "0.7";
+
+        // Plugin configs
+
+        // Plugin logger
 
         /// <summary>
         /// Called on mod load

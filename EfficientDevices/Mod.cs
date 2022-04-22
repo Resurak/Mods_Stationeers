@@ -1,19 +1,7 @@
-﻿using Assets.Scripts.Objects.Electrical;
-using Assets.Scripts.Objects.Pipes;
-using BepInEx;
-using BepInEx.Configuration;
+﻿using BepInEx;
 using BepInEx.Logging;
-using Core;
 using Core.Config;
-using Core.Shared;
 using HarmonyLib;
-using Objects.Pipes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EfficientDevices
 {
@@ -25,9 +13,9 @@ namespace EfficientDevices
         public const string coreGuid = "resurak.Core";
         public const string pluginGuid = "resurak.EfficientDevices";
         public const string pluginName = "Efficient Devices";
-        public const string pluginVersion = "0.8";
+        public const string pluginVersion = "0.9";
 
-        // Plugin config values
+        // Plugin configs
         public static ConfigFloat Cable_MaxVoltage;
 
         public static ConfigFloat AirConditioner_MinPower;
@@ -38,7 +26,7 @@ namespace EfficientDevices
         public static ConfigFloat TurboVolumePump_MaxPower;
         public static ConfigMinMax TurboVolumePump_Config;
 
-        // Mod logger
+        // Plugin logger
         internal static ManualLogSource Log;
 
         /// <summary>

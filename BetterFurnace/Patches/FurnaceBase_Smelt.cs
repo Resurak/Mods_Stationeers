@@ -2,15 +2,10 @@
 using Assets.Scripts.Objects;
 using Assets.Scripts.Objects.Items;
 using Assets.Scripts.Objects.Pipes;
-using Core;
 using Core.Shared;
 using HarmonyLib;
 using Reagents;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BetterFurnace.Patches
 {

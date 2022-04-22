@@ -1,16 +1,9 @@
 ﻿using Assets.Scripts.Networks;
 using Assets.Scripts.Objects.Electrical;
 using Assets.Scripts.Objects.Pipes;
-using Core;
 using Core.Shared;
 using HarmonyLib;
 using Objects.Pipes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
 
 namespace EfficientDevices.Patches
 {

@@ -1,16 +1,7 @@
-﻿using Assets.Scripts.Objects.Pipes;
-using BepInEx;
-using BepInEx.Configuration;
+﻿using BepInEx;
 using BepInEx.Logging;
-using Core;
 using Core.Config;
-using Core.Shared;
 using HarmonyLib;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BetterFurnace
 {
@@ -22,16 +13,14 @@ namespace BetterFurnace
         public const string coreGuid = "resurak.Core";
         public const string pluginGuid = "resurak.BetterFurnace";
         public const string pluginName = "Better Furnace";
-        public const string pluginVersion = "0.9";
+        public const string pluginVersion = "0.10";
 
-        // Plugin config values
+        // Plugin configs
         public static ConfigMinMax Furnace_Config;
         public static ConfigFloat Furnace_MinSetting;
         public static ConfigFloat Furnace_MaxSetting;
 
-        public static ConfigFloat Furnace_Min;
-
-        // Mod logger
+        // Plugin logger
         internal static ManualLogSource Log;
 
         /// <summary>
@@ -63,7 +52,6 @@ namespace BetterFurnace
 
             Furnace_MinSetting = new ConfigFloat(pluginGuid, "Furnace", "MinSetting", "Minimum Setting value for the furnace", 1f);
             Furnace_MaxSetting = new ConfigFloat(pluginGuid, "Furnace", "MaxSetting", "Maximum Setting value for the furnace", 100f);
-
             Furnace_Config = new ConfigMinMax(nameof(Furnace_Config), pluginGuid, Furnace_MinSetting, Furnace_MaxSetting);
         }
 
