@@ -10,6 +10,10 @@
 
 Currently available mods: 
 
+* Core
+  
+  Needed for each mod to load correctly. Provides common methods for plugins
+  
 * Better Furnace
 
   Change the speed of the Furnace with the Setting parameter
