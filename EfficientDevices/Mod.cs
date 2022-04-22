@@ -16,9 +16,11 @@ using System.Threading.Tasks;
 namespace EfficientDevices
 {
     [BepInPlugin(pluginGuid, pluginName, pluginVersion)]
+    [BepInDependency(coreGuid)]
     public class Mod : BaseUnityPlugin
     {
         // Plugin info
+        public const string coreGuid = "resurak.Core";
         public const string pluginGuid = "resurak.EfficientDevices";
         public const string pluginName = "Efficient Devices";
         public const string pluginVersion = "0.8";

@@ -13,9 +13,11 @@ using System.Threading.Tasks;
 namespace BetterFurnace
 {
     [BepInPlugin(pluginGuid, pluginName, pluginVersion)]
+    [BepInDependency(coreGuid)]
     public class Mod : BaseUnityPlugin
     {
         // Plugin info
+        public const string coreGuid = "resurak.Core";
         public const string pluginGuid = "resurak.BetterFurnace";
         public const string pluginName = "Better Furnace";
         public const string pluginVersion = "0.9";
@@ -70,14 +72,7 @@ namespace BetterFurnace
             Log.LogInfo($"{nameof(Furnace_MaxSetting)} = {Furnace_MaxSetting.Value}");
 
             Furnace_Config = new ConfigMinMax(Furnace_MinSetting, Furnace_MaxSetting);
-            try
-            {
-                Furnace_Config.CheckConfig(nameof(Furnace_Config));
-            }
-            catch (Exception ex)
-            {
-                Mod.Log.LogError("Exception thrown while checking config. Exception: " + ex.ToString());
-            }
+            Furnace_Config.CheckConfig(nameof(Furnace_Config));
         }
 
         public void Patch()

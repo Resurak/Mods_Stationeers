@@ -10,8 +10,10 @@ namespace EfficientTools
 {
 	// Token: 0x02000002 RID: 2
 	[BepInPlugin(pluginGuid, pluginName, pluginVersion)]
+	[BepInDependency(coreGuid)]
 	public class Mod : BaseUnityPlugin
 	{
+		public const string coreGuid = "resurak.Core";
 		public const string pluginGuid = "resurak.EfficientTools";
 		public const string pluginName = "Efficient Tools";
 		public const string pluginVersion = "0.6";
