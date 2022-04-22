@@ -21,7 +21,7 @@ namespace EfficientDevices.Patches
         /// <param name="__result"></param>
         static void Postfix(CableNetwork cableNetwork, ref float __result)
         {
-            Utils.MinMax(ref __result, Mod.TurboVolumePump_Config);
+            Utils.AssignConfigValue(ref __result, Mod.TurboVolumePump_Config);
         }
     }
 }

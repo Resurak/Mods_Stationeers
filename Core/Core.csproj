@@ -86,10 +86,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Shared\ConfigMinMax.cs" />
+    <Compile Include="Config\Config.cs" />
+    <Compile Include="Config\ConfigFloat.cs" />
+    <Compile Include="Config\ConfigMinMax.cs" />
     <Compile Include="Mod.cs" />
-    <Compile Include="Shared\MinMax.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shared\CoreLogger.cs" />
     <Compile Include="Shared\Utils.cs" />
   </ItemGroup>
   <ItemGroup>

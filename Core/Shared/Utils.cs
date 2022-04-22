@@ -1,4 +1,5 @@
 ﻿using BepInEx.Configuration;
+using Core.Config;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,6 @@ namespace Core.Shared
 {
     public class Utils
     {
-        public static bool ConfigIsValid(string caller, MinMax minMax) =>
-            ConfigIsValid(caller, minMax.Min, minMax.Max);
-
         public static bool ConfigIsValid(string caller, float min, float max)
         {
             bool flag1 = min > max;
@@ -20,28 +18,28 @@ namespace Core.Shared
 
             if (flag1)
             {
-                Mod.Log.LogError($"{caller}: Wrong configs. Min is bigger than Max");
+                CoreLogger.Error(caller, "Wrong configs. Min is bigger than Max");
             }
 
             if (flag2)
             {
-                Mod.Log.LogError($"{caller}: Wrong configs. Max is less than Min");
+                CoreLogger.Error(caller, "Wrong configs. Max is less than Min");
             }
 
             return !flag1 && !flag2;
         }
 
-        public static void MinMax(ref float value, ConfigMinMax config)
+        public static void AssignConfigValue(ref float value, ConfigMinMax config)
         {
             if (config.ConfigValid)
             {
-                if (value < config.Values.Min)
+                if (value < config.Min)
                 {
-                    value = config.Values.Min;
+                    value = config.Min;
                 }
-                else if (value > config.Values.Max)
+                else if (value > config.Max)
                 {
-                    value = config.Values.Max;
+                    value = config.Max;
                 }
             }
         }

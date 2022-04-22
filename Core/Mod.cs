@@ -1,5 +1,6 @@
 ﻿using BepInEx;
 using BepInEx.Logging;
+using Core.Shared;
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
@@ -15,10 +16,7 @@ namespace Core
         // Plugin info
         public const string pluginGuid = "resurak.Core";
         public const string pluginName = "Resurak Mod Core";
-        public const string pluginVersion = "0.4";
-
-        // Mod logger
-        public static ManualLogSource Log;
+        public const string pluginVersion = "0.6";
 
         /// <summary>
         /// Called on mod load
@@ -34,26 +32,23 @@ namespace Core
             // Harmony patches
             Patch();
 
-            Log.LogInfo("Mod loaded correclty");
+            CoreLogger.Info("Mod loaded correclty");
         }
 
         public void CreateLogger()
         {
-            Log = base.Logger;
-            Log.LogInfo("Loading mod");
+            CoreLogger.Log = base.Logger;
+            CoreLogger.Info("Loading mod");
         }
 
         public void LoadConfig()
         {
-            Log.LogInfo("No config to load");
+            CoreLogger.Warn("No configs to load");
         }
 
         public void Patch()
         {
-            Log.LogInfo("Patching");
-
-            Harmony harmony = new Harmony(pluginGuid);
-            harmony.PatchAll();
+            CoreLogger.Warn("No methods to patch");
         }
     }
 }

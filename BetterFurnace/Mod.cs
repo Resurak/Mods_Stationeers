@@ -3,6 +3,7 @@ using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using Core;
+using Core.Config;
 using Core.Shared;
 using HarmonyLib;
 using System;
@@ -25,8 +26,10 @@ namespace BetterFurnace
 
         // Plugin config values
         public static ConfigMinMax Furnace_Config;
-        public static ConfigEntry<float> Furnace_MinSetting;
-        public static ConfigEntry<float> Furnace_MaxSetting;
+        public static ConfigFloat Furnace_MinSetting;
+        public static ConfigFloat Furnace_MaxSetting;
+
+        public static ConfigFloat Furnace_Min;
 
         // Mod logger
         internal static ManualLogSource Log;
@@ -58,22 +61,10 @@ namespace BetterFurnace
         {
             Log.LogInfo("Loading config");
 
-            Furnace_MinSetting = Config.Bind(
-                "Furnace",
-                "Min Setting",
-                1f,
-                "Min Setting value of the furnace");
-            Log.LogInfo($"{nameof(Furnace_MinSetting)} = {Furnace_MinSetting.Value}");
+            Furnace_MinSetting = new ConfigFloat(pluginGuid, "Furnace", "MinSetting", "Minimum Setting value for the furnace", 1f);
+            Furnace_MaxSetting = new ConfigFloat(pluginGuid, "Furnace", "MaxSetting", "Maximum Setting value for the furnace", 100f);
 
-            Furnace_MaxSetting = Config.Bind(
-                "Furnace",
-                "Max Setting",
-                100f,
-                "Max Setting value of the furnace");
-            Log.LogInfo($"{nameof(Furnace_MaxSetting)} = {Furnace_MaxSetting.Value}");
-
-            Furnace_Config = new ConfigMinMax(Furnace_MinSetting, Furnace_MaxSetting);
-            Furnace_Config.CheckConfig(nameof(Furnace_Config));
+            Furnace_Config = new ConfigMinMax(nameof(Furnace_Config), pluginGuid, Furnace_MinSetting, Furnace_MaxSetting);
         }
 
         public void Patch()

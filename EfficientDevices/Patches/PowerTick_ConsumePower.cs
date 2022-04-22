@@ -27,12 +27,12 @@ namespace EfficientDevices.Patches
         {
             if (device is TurboVolumePump)
             {
-                Utils.MinMax(ref powerRequired, Mod.TurboVolumePump_Config);
+                Utils.AssignConfigValue(ref powerRequired, Mod.TurboVolumePump_Config);
             }
 
             if (device is AirConditioner)
             {
-                Utils.MinMax(ref powerRequired, Mod.AirConditioner_Config);
+                Utils.AssignConfigValue(ref powerRequired, Mod.AirConditioner_Config);
             }
 		}
     }

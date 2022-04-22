@@ -4,6 +4,7 @@ using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using Core;
+using Core.Config;
 using Core.Shared;
 using HarmonyLib;
 using Objects.Pipes;
@@ -27,14 +28,14 @@ namespace EfficientDevices
         public const string pluginVersion = "0.8";
 
         // Plugin config values
-        public static ConfigEntry<float> Cable_MaxVoltage;
+        public static ConfigFloat Cable_MaxVoltage;
 
-        public static ConfigEntry<float> AirConditioner_MinPower;
-        public static ConfigEntry<float> AirConditioner_MaxPower;
+        public static ConfigFloat AirConditioner_MinPower;
+        public static ConfigFloat AirConditioner_MaxPower;
         public static ConfigMinMax AirConditioner_Config;
 
-        public static ConfigEntry<float> TurboVolumePump_MinPower;
-        public static ConfigEntry<float> TurboVolumePump_MaxPower;
+        public static ConfigFloat TurboVolumePump_MinPower;
+        public static ConfigFloat TurboVolumePump_MaxPower;
         public static ConfigMinMax TurboVolumePump_Config;
 
         // Mod logger
@@ -67,46 +68,16 @@ namespace EfficientDevices
         {
             Log.LogInfo("Loading config");
 
-            Cable_MaxVoltage = Config.Bind(
-                "Cable",
-                "Max voltage",
-                5000f,
-                "Max voltage that a cable can absorb");
-            Log.LogInfo($"{nameof(Cable_MaxVoltage)} = {Cable_MaxVoltage.Value}");
+            Cable_MaxVoltage = new ConfigFloat(pluginGuid, "Cable", "MaxVoltage", "Max voltage that a cable can absorb before breaking", 5000f);
 
-            AirConditioner_MinPower = Config.Bind(
-                "Air Conditioner",
-                "Min Power",
-                100f,
-                "Min power draw of the Air Conditioner");
-            Log.LogInfo($"{nameof(AirConditioner_MinPower)} = {AirConditioner_MinPower.Value}");
+            AirConditioner_MinPower = new ConfigFloat(pluginGuid, "AirConditioner", "MinPower", "Minimum power draw", 100f);
+            AirConditioner_MaxPower = new ConfigFloat(pluginGuid, "AirConditioner", "MaxPower", "Maximum power draw", 1500f);
 
-            AirConditioner_MaxPower = Config.Bind(
-                "Air Conditioner",
-                "Max Power",
-                1500f,
-                "Max power draw of the Air Conditioner");
-            Log.LogInfo($"{nameof(AirConditioner_MaxPower)} = {AirConditioner_MaxPower.Value}");
+            TurboVolumePump_MinPower = new ConfigFloat(pluginGuid, "TurboPumpGas", "MinPower", "Minimum power draw", 50f);
+            TurboVolumePump_MaxPower = new ConfigFloat(pluginGuid, "TurboPumpGas", "MaxPower", "Maximum power draw", 200f);
 
-            TurboVolumePump_MinPower = Config.Bind(
-                "Turbo Volume Pump (Gas)",
-                "Min Power",
-                50f,
-                "Min power draw of the Turbo Volume Pump (Gas)");
-            Log.LogInfo($"{nameof(TurboVolumePump_MinPower)} = {TurboVolumePump_MinPower.Value}");
-
-            TurboVolumePump_MaxPower = Config.Bind(
-                "Turbo Volume Pump (Gas)",
-                "Max Power",
-                200f,
-                "Max power draw of the Turbo Volume Pump (Gas)");
-            Log.LogInfo($"{nameof(TurboVolumePump_MaxPower)} = {TurboVolumePump_MaxPower.Value}");
-
-            AirConditioner_Config = new ConfigMinMax(AirConditioner_MinPower, AirConditioner_MaxPower);
-            AirConditioner_Config.CheckConfig(nameof(AirConditioner_Config));
-
-            TurboVolumePump_Config = new ConfigMinMax(TurboVolumePump_MinPower, TurboVolumePump_MaxPower);
-            TurboVolumePump_Config.CheckConfig(nameof(TurboVolumePump_Config));
+            AirConditioner_Config = new ConfigMinMax(nameof(AirConditioner_Config), pluginGuid, AirConditioner_MinPower, AirConditioner_MaxPower);
+            TurboVolumePump_Config = new ConfigMinMax(nameof(TurboVolumePump_Config), pluginGuid, TurboVolumePump_MinPower, TurboVolumePump_MaxPower);
         }
 
         public void Patch()

@@ -4,6 +4,7 @@ using Assets.Scripts.Objects.Items;
 using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
+using Core.Config;
 using HarmonyLib;
 
 namespace EfficientTools
@@ -18,9 +19,9 @@ namespace EfficientTools
 		public const string pluginName = "Efficient Tools";
 		public const string pluginVersion = "0.6";
 
-		public static ConfigEntry<float> PowerTool_PowerToUse;
-		public static ConfigEntry<float> ArcWelder_PowerToUse;
-		public static ConfigEntry<float> MiningDrill_PowerToUse;
+		public static ConfigFloat PowerTool_PowerToUse;
+		public static ConfigFloat ArcWelder_PowerToUse;
+		public static ConfigFloat MiningDrill_PowerToUse;
 
 		internal static ManualLogSource Log;
 
@@ -51,26 +52,9 @@ namespace EfficientTools
         {
 			Log.LogInfo("Loading config");
 
-			PowerTool_PowerToUse = Config.Bind(
-				"Power Tool",
-				"Power used",
-				360f,
-				"Power usage of power tools (hand drill, angle grinder)");
-			Log.LogInfo($"{nameof(PowerTool_PowerToUse)} = {PowerTool_PowerToUse.Value}");
-
-			ArcWelder_PowerToUse = Config.Bind(
-				"Arc Welder",
-				"Power used",
-				720f,
-				"Power usage of arc welder");
-			Log.LogInfo($"{nameof(ArcWelder_PowerToUse)} = {ArcWelder_PowerToUse.Value}");
-
-			MiningDrill_PowerToUse = Config.Bind(
-				"Mining Drill",
-				"Power used",
-				720f,
-				"Power usage of mining drill");
-			Log.LogInfo($"{nameof(MiningDrill_PowerToUse)} = {MiningDrill_PowerToUse.Value}");
+			PowerTool_PowerToUse = new ConfigFloat(pluginGuid, "PowerTool", "PowerUsed", "Power use of tools", 360f);
+			ArcWelder_PowerToUse = new ConfigFloat(pluginGuid, "ArcWelder", "PowerUsed", "Power use of each weld", 720f);
+			MiningDrill_PowerToUse = new ConfigFloat(pluginGuid, "MiningDrill", "PowerUsed", "Power use of each ore mined", 720f);
 		}
 
 		public void Patch()
