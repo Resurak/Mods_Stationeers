@@ -26,11 +26,31 @@ namespace Core.Config
             this.ConfigFile = new ConfigFile(ConfigPath, true);
         }
 
-        public ConfigEntry<T> Load<T>(T value)
+        public ConfigEntry<float> Load(float value)
         {
-            ConfigEntry<T> entry = ConfigFile.Bind(this.Section, this.Key, value, this.Description);
+            ConfigEntry<float> entry = ConfigFile.Bind(this.Section, this.Key, value, this.Description);
 
-            if (Mod.Log_ShowConfigLoad.Value)
+            if (this.Plugin == Mod.pluginGuid)
+            {
+                CoreLogger.Info($"Loaded {this.Section}.{this.Key}. Value = {value}");
+            }
+            else if (Mod.Log_ShowConfigLoad.Value)
+            {
+                CoreLogger.Info(this.Plugin, $"Loaded {this.Section}.{this.Key}. Value = {value}");
+            }
+
+            return entry;
+        }
+
+        public ConfigEntry<bool> Load(bool value)
+        {
+            ConfigEntry<bool> entry = ConfigFile.Bind(this.Section, this.Key, value, this.Description);
+
+            if (this.Plugin == Mod.pluginGuid)
+            {
+                CoreLogger.Info($"Loaded {this.Section}.{this.Key}. Value = {value}");
+            }
+            else if (Mod.Log_ShowConfigLoad.Value)
             {
                 CoreLogger.Info(this.Plugin, $"Loaded {this.Section}.{this.Key}. Value = {value}");
             }
