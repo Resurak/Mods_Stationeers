@@ -86,11 +86,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigMinMax.cs" />
+    <Compile Include="Shared\ConfigMinMax.cs" />
     <Compile Include="Mod.cs" />
-    <Compile Include="MinMax.cs" />
+    <Compile Include="Shared\MinMax.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils.cs" />
+    <Compile Include="Shared\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Patches\" />

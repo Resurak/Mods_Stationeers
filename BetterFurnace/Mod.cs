@@ -3,6 +3,7 @@ using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using Core;
+using Core.Shared;
 using HarmonyLib;
 using System;
 using System.Collections.Generic;

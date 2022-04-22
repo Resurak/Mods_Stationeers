@@ -4,6 +4,7 @@ using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using Core;
+using Core.Shared;
 using HarmonyLib;
 using Objects.Pipes;
 using System;

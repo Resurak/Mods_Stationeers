@@ -3,6 +3,7 @@ using Assets.Scripts.Objects;
 using Assets.Scripts.Objects.Items;
 using Assets.Scripts.Objects.Pipes;
 using Core;
+using Core.Shared;
 using HarmonyLib;
 using Reagents;
 using System;

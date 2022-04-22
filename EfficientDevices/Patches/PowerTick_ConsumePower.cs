@@ -2,6 +2,7 @@
 using Assets.Scripts.Objects.Electrical;
 using Assets.Scripts.Objects.Pipes;
 using Core;
+using Core.Shared;
 using HarmonyLib;
 using Objects.Pipes;
 using System;

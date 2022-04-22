@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Networks;
 using Assets.Scripts.Objects.Electrical;
 using Core;
+using Core.Shared;
 using HarmonyLib;
 using System;
 using System.Collections.Generic;

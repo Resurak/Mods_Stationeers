@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Networks;
 using Core;
+using Core.Shared;
 using HarmonyLib;
 using Objects.Pipes;
 using System;
