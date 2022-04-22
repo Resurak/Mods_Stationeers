@@ -86,7 +86,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\Config.cs" />
+    <Compile Include="Config\ConfigBase.cs" />
+    <Compile Include="Config\ConfigHandler.cs" />
     <Compile Include="Config\ConfigBool.cs" />
     <Compile Include="Config\ConfigFloat.cs" />
     <Compile Include="Config\ConfigMinMax.cs" />
@@ -99,4 +100,7 @@
     <Folder Include="Patches\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /y "$(TargetPath)" "$(SolutionDir)"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

@@ -16,15 +16,17 @@ namespace EfficientDevices
         public const string pluginVersion = "0.9";
 
         // Plugin configs
+        public static ConfigHandler ConfigHandler;
+
         public static ConfigFloat Cable_MaxVoltage;
 
         public static ConfigFloat AirConditioner_MinPower;
         public static ConfigFloat AirConditioner_MaxPower;
-        public static ConfigMinMax AirConditioner_Config;
+        public static ConfigMinMax AirConditioner_MinMax;
 
-        public static ConfigFloat TurboVolumePump_MinPower;
-        public static ConfigFloat TurboVolumePump_MaxPower;
-        public static ConfigMinMax TurboVolumePump_Config;
+        public static ConfigFloat TurboPumpGas_MinPower;
+        public static ConfigFloat TurboPumpGas_MaxPower;
+        public static ConfigMinMax TurboPumpGas_MinMax;
 
         // Plugin logger
         internal static ManualLogSource Log;
@@ -54,18 +56,17 @@ namespace EfficientDevices
 
         public void LoadConfig()
         {
-            Log.LogInfo("Loading config");
+            ConfigHandler = new ConfigHandler(pluginGuid);
 
-            Cable_MaxVoltage = new ConfigFloat(pluginGuid, "Cable", "MaxVoltage", "Max voltage that a cable can absorb before breaking", 5000f);
+            Cable_MaxVoltage = ConfigHandler.AddFloat("Cable", "MaxVoltage", "Max voltage that a cable can absorb before breaking", 5000f);
 
-            AirConditioner_MinPower = new ConfigFloat(pluginGuid, "AirConditioner", "MinPower", "Minimum power draw", 100f);
-            AirConditioner_MaxPower = new ConfigFloat(pluginGuid, "AirConditioner", "MaxPower", "Maximum power draw", 1500f);
+            AirConditioner_MinPower = ConfigHandler.AddFloat("AirConditioner", "MinPower", "Minimum power draw", 100f);
+            AirConditioner_MaxPower = ConfigHandler.AddFloat("AirConditioner", "MaxPower", "Maximum power draw", 1500f);
+            AirConditioner_MinMax = new ConfigMinMax(ConfigHandler, AirConditioner_MinPower, AirConditioner_MaxPower);
 
-            TurboVolumePump_MinPower = new ConfigFloat(pluginGuid, "TurboPumpGas", "MinPower", "Minimum power draw", 50f);
-            TurboVolumePump_MaxPower = new ConfigFloat(pluginGuid, "TurboPumpGas", "MaxPower", "Maximum power draw", 200f);
-
-            AirConditioner_Config = new ConfigMinMax(nameof(AirConditioner_Config), pluginGuid, AirConditioner_MinPower, AirConditioner_MaxPower);
-            TurboVolumePump_Config = new ConfigMinMax(nameof(TurboVolumePump_Config), pluginGuid, TurboVolumePump_MinPower, TurboVolumePump_MaxPower);
+            TurboPumpGas_MinPower = ConfigHandler.AddFloat("TurboPumpGas", "MinPower", "Minimum power draw", 50f);
+            TurboPumpGas_MaxPower = ConfigHandler.AddFloat("TurboPumpGas", "MaxPower", "Maximum power draw", 200f);
+            TurboPumpGas_MinMax = new ConfigMinMax(ConfigHandler, TurboPumpGas_MinPower, TurboPumpGas_MaxPower);
         }
 
         public void Patch()

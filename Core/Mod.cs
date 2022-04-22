@@ -13,6 +13,7 @@ namespace Core
         public const string pluginVersion = "0.8";
 
         // Plugin configs
+        public static ConfigHandler Config;
         public static ConfigBool Log_ShowConfigLoad;
         public static ConfigBool Log_ShowConfigValid;
 
@@ -43,10 +44,10 @@ namespace Core
 
         public void LoadConfig()
         {
-            CoreLogger.Info("Loading config");
+            Config = new ConfigHandler(pluginGuid);
 
-            Log_ShowConfigLoad = new ConfigBool(pluginGuid, "Logging", "ShowConfigLoad", "If enabled, logs the loading of plugin configs", true);
-            Log_ShowConfigValid = new ConfigBool(pluginGuid, "Logging", "ShowConfigValid", "If enabled, logs if a config is valid or not", true);
+            Log_ShowConfigLoad = Config.AddBool("Logging", "ShowConfigLoad", "If enabled, logs the loading of plugin configs", true);
+            Log_ShowConfigValid = Config.AddBool("Logging", "ShowConfigValid", "If enabled, logs if a config is valid or not", true);
         }
 
         public void Patch()

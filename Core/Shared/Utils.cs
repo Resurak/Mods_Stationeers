@@ -2,29 +2,11 @@
 
 namespace Core.Shared
 {
-    public class Utils
+    public static class Utils
     {
-        public static bool ConfigIsValid(string caller, float min, float max)
+        public static void AssignConfigValue(this ref float value, ConfigMinMax config)
         {
-            bool flag1 = min > max;
-            bool flag2 = max < min;
-
-            if (flag1)
-            {
-                CoreLogger.Error(caller, "Wrong configs. Min is bigger than Max");
-            }
-
-            if (flag2)
-            {
-                CoreLogger.Error(caller, "Wrong configs. Max is less than Min");
-            }
-
-            return !flag1 && !flag2;
-        }
-
-        public static void AssignConfigValue(ref float value, ConfigMinMax config)
-        {
-            if (config.ConfigValid)
+            if (config.Valid)
             {
                 if (value < config.Min)
                 {

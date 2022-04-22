@@ -25,8 +25,7 @@ namespace BetterFurnace.Patches
         {
             // Getting the Setting output from the Furnace
             float setting = (float)Math.Round(__instance.OutputSetting);
-
-            Utils.AssignConfigValue(ref setting, Mod.Furnace_Config);
+            setting.AssignConfigValue(Mod.Furnace_MinMax);
 
             // More checking for invalid min setting
             if (setting < 1)

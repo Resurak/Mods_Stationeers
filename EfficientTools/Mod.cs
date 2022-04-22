@@ -17,6 +17,8 @@ namespace EfficientTools
 		public const string pluginVersion = "0.7";
 
 		// Plugin configs
+		public static ConfigHandler ConfigHandler;
+
 		public static ConfigFloat PowerTool_PowerToUse;
 		public static ConfigFloat ArcWelder_PowerToUse;
 		public static ConfigFloat MiningDrill_PowerToUse;
@@ -49,11 +51,11 @@ namespace EfficientTools
 
 		public void LoadConfig()
         {
-			Log.LogInfo("Loading config");
+			ConfigHandler = new ConfigHandler(pluginGuid);
 
-			PowerTool_PowerToUse = new ConfigFloat(pluginGuid, "PowerTool", "PowerUsed", "Power use of tools", 360f);
-			ArcWelder_PowerToUse = new ConfigFloat(pluginGuid, "ArcWelder", "PowerUsed", "Power use of each weld", 720f);
-			MiningDrill_PowerToUse = new ConfigFloat(pluginGuid, "MiningDrill", "PowerUsed", "Power use of each ore mined", 720f);
+			PowerTool_PowerToUse = ConfigHandler.AddFloat("PowerTool", "PowerUsed", "Power use of tools", 360f);
+			ArcWelder_PowerToUse = ConfigHandler.AddFloat("ArcWelder", "PowerUsed", "Power use of each weld", 720f);
+			MiningDrill_PowerToUse = ConfigHandler.AddFloat("MiningDrill", "PowerUsed", "Power use of each ore mined", 720f);
 		}
 
 		public void Patch()

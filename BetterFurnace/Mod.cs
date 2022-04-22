@@ -16,7 +16,9 @@ namespace BetterFurnace
         public const string pluginVersion = "0.10";
 
         // Plugin configs
-        public static ConfigMinMax Furnace_Config;
+        public static ConfigHandler ConfigHandler;
+        public static ConfigMinMax Furnace_MinMax;
+
         public static ConfigFloat Furnace_MinSetting;
         public static ConfigFloat Furnace_MaxSetting;
 
@@ -48,11 +50,11 @@ namespace BetterFurnace
 
         public void LoadConfig()
         {
-            Log.LogInfo("Loading config");
+            ConfigHandler = new ConfigHandler(pluginGuid);
 
-            Furnace_MinSetting = new ConfigFloat(pluginGuid, "Furnace", "MinSetting", "Minimum Setting value for the furnace", 1f);
-            Furnace_MaxSetting = new ConfigFloat(pluginGuid, "Furnace", "MaxSetting", "Maximum Setting value for the furnace", 100f);
-            Furnace_Config = new ConfigMinMax(nameof(Furnace_Config), pluginGuid, Furnace_MinSetting, Furnace_MaxSetting);
+            Furnace_MinSetting = ConfigHandler.AddFloat("Furnace", "MinSetting", "Minimum Setting value for the furnace", 1f);
+            Furnace_MaxSetting = ConfigHandler.AddFloat("Furnace", "MaxSetting", "Maximum Setting value for the furnace", 100f);
+            Furnace_MinMax = new ConfigMinMax(ConfigHandler, Furnace_MinSetting, Furnace_MaxSetting);
         }
 
         public void Patch()

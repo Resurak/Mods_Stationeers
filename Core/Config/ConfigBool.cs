@@ -8,15 +8,14 @@ using System.Threading.Tasks;
 
 namespace Core.Config
 {
-    public class ConfigBool : Config
+    public class ConfigBool : ConfigBase
     {
         public bool Value { get; private set; }
-        public ConfigEntry<bool> Entry { get; private set; }
+        public ConfigEntry<bool> Entry { get; set; }
 
-        public ConfigBool(string plugin, string section, string key, string description, bool value) : base(plugin, section, key, description)
+        public ConfigBool(string section, string key, string description, bool value) : base(section, key, description)
         {
             this.Value = value;
-            this.Entry = base.Load(value);
         }
     }
 }
