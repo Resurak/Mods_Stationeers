@@ -37,7 +37,10 @@ namespace Core.Config
                 ConfigValid = Utils.ConfigIsValid(this.Plugin, this.Min, this.Max);
                 ConfigChecked = true;
 
-                CoreLogger.Info($"{this.Plugin}.{this.Key}", $"{nameof(ConfigValid)} = {ConfigValid}");
+                if (Mod.Log_ShowConfigValid.Value)
+                {
+                    CoreLogger.Info($"{this.Plugin}.{this.Key}", $"{nameof(ConfigValid)} = {ConfigValid}");
+                }
             }
         }
     }

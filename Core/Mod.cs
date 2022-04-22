@@ -1,4 +1,5 @@
 ﻿using BepInEx;
+using Core.Config;
 using Core.Shared;
 
 namespace Core
@@ -9,9 +10,11 @@ namespace Core
         // Plugin info
         public const string pluginGuid = "resurak.Core";
         public const string pluginName = "Resurak Mod Core";
-        public const string pluginVersion = "0.7";
+        public const string pluginVersion = "0.8";
 
         // Plugin configs
+        public static ConfigBool Log_ShowConfigLoad;
+        public static ConfigBool Log_ShowConfigValid;
 
         // Plugin logger
 
@@ -40,7 +43,10 @@ namespace Core
 
         public void LoadConfig()
         {
-            CoreLogger.Warn("No configs to load");
+            CoreLogger.Info("Loading config");
+
+            Log_ShowConfigLoad = new ConfigBool(pluginGuid, "Logging", "ShowConfigLoad", "If enabled, logs the loading of plugin configs", true);
+            Log_ShowConfigValid = new ConfigBool(pluginGuid, "Logging", "ShowConfigValid", "If enabled, logs if a config is valid or not", true);
         }
 
         public void Patch()

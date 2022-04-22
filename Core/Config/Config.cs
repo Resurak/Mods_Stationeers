@@ -1,5 +1,6 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
+using Core.Shared;
 using System.IO;
 
 namespace Core.Config
@@ -23,6 +24,18 @@ namespace Core.Config
             this.Description = description;
 
             this.ConfigFile = new ConfigFile(ConfigPath, true);
+        }
+
+        public ConfigEntry<T> Load<T>(T value)
+        {
+            ConfigEntry<T> entry = ConfigFile.Bind(this.Section, this.Key, value, this.Description);
+
+            if (Mod.Log_ShowConfigLoad.Value)
+            {
+                CoreLogger.Info(this.Plugin, $"Loaded {this.Section}.{this.Key}. Value = {value}");
+            }
+
+            return entry;
         }
     }
 }

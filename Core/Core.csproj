@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\Config.cs" />
+    <Compile Include="Config\ConfigBool.cs" />
     <Compile Include="Config\ConfigFloat.cs" />
     <Compile Include="Config\ConfigMinMax.cs" />
     <Compile Include="Mod.cs" />
