@@ -10,12 +10,14 @@ namespace Core.Config
 {
     public class ConfigBool : ConfigBase
     {
-        public bool Value { get; private set; }
+        public bool Value => Entry.Value;
+        public bool DefaultValue { get; private set; }
+
         public ConfigEntry<bool> Entry { get; set; }
 
         public ConfigBool(string section, string key, string description, bool value) : base(section, key, description)
         {
-            this.Value = value;
+            this.DefaultValue = value;
         }
     }
 }

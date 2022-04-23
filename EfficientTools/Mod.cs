@@ -51,11 +51,11 @@ namespace EfficientTools
 
 		public void LoadConfig()
         {
-			ConfigHandler = new ConfigHandler(pluginGuid);
+			ConfigHandler = new ConfigHandler(pluginGuid, Config);
 
-			PowerTool_PowerToUse = ConfigHandler.AddFloat("PowerTool", "PowerUsed", "Power use of tools", 360f);
-			ArcWelder_PowerToUse = ConfigHandler.AddFloat("ArcWelder", "PowerUsed", "Power use of each weld", 720f);
-			MiningDrill_PowerToUse = ConfigHandler.AddFloat("MiningDrill", "PowerUsed", "Power use of each ore mined", 720f);
+			PowerTool_PowerToUse = ConfigHandler.LoadFloat("PowerTool", "PowerUsed", "Power use of tools", 360f);
+			ArcWelder_PowerToUse = ConfigHandler.LoadFloat("ArcWelder", "PowerUsed", "Power use of each weld", 720f);
+			MiningDrill_PowerToUse = ConfigHandler.LoadFloat("MiningDrill", "PowerUsed", "Power use of each ore mined", 720f);
 		}
 
 		public void Patch()

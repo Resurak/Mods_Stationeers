@@ -45,10 +45,10 @@ namespace Core
 
         public void LoadConfig()
         {
-            ConfigHandler = new ConfigHandler(pluginGuid);
+            ConfigHandler = new ConfigHandler(pluginGuid, Config);
 
-            Log_ShowConfigLoad = ConfigHandler.AddBool("Logging", "ShowConfigLoad", "If enabled, logs the loading of plugin configs", true);
-            Log_ShowConfigValid = ConfigHandler.AddBool("Logging", "ShowConfigValid", "If enabled, logs if a config is valid or not", true);
+            Log_ShowConfigLoad = ConfigHandler.LoadBool("Logging", "ShowConfigLoad", "If enabled, logs the loading of plugin configs", true);
+            Log_ShowConfigValid = ConfigHandler.LoadBool("Logging", "ShowConfigValid", "If enabled, logs if a config is valid or not", true);
         }
 
         public void Patch()

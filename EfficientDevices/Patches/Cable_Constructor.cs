@@ -6,7 +6,7 @@ namespace EfficientDevices.Patches
     [HarmonyPatch(typeof(Cable), MethodType.Constructor)]
     public class Cable_Constructor
     {
-        static float voltage => Mod.Cable_MaxVoltage.Value > 10 ? Mod.Cable_MaxVoltage.Value : 10;
+        static float voltage => Mod.Cable_MaxVoltage.DefaultValue > 10 ? Mod.Cable_MaxVoltage.DefaultValue : 10;
 
         /// <summary>
         /// Patches Cable constructor to set the Cable.MaxVoltage to 10000

@@ -50,10 +50,11 @@ namespace BetterFurnace
 
         public void LoadConfig()
         {
-            ConfigHandler = new ConfigHandler(pluginGuid);
+            ConfigHandler = new ConfigHandler(pluginGuid, Config);
 
-            Furnace_MinSetting = ConfigHandler.AddFloat("Furnace", "MinSetting", "Minimum Setting value for the furnace", 1f);
-            Furnace_MaxSetting = ConfigHandler.AddFloat("Furnace", "MaxSetting", "Maximum Setting value for the furnace", 100f);
+            Furnace_MinSetting = ConfigHandler.LoadFloat("Furnace", "MinSetting", "Minimum Setting value for the furnace", 1f);
+            Furnace_MaxSetting = ConfigHandler.LoadFloat("Furnace", "MaxSetting", "Maximum Setting value for the furnace", 100f);
+
             Furnace_MinMax = new ConfigMinMax(ConfigHandler, Furnace_MinSetting, Furnace_MaxSetting);
         }
 
