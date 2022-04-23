@@ -14,7 +14,7 @@ namespace EfficientTools
 		public const string coreGuid = "resurak.Core";
 		public const string pluginGuid = "resurak.EfficientTools";
 		public const string pluginName = "Efficient Tools";
-		public const string pluginVersion = "0.7";
+		public const string pluginVersion = "0.9";
 
 		// Plugin configs
 		public static ConfigHandler ConfigHandler;
@@ -61,9 +61,7 @@ namespace EfficientTools
 		public void Patch()
         {
 			Log.LogInfo("Patching");
-
-			Harmony harmony = new Harmony(pluginGuid);
-			harmony.PatchAll();
+			Harmony.CreateAndPatchAll(typeof(ModPatches), pluginGuid);
 		}
 	}
 }

@@ -13,7 +13,7 @@ namespace EfficientDevices
         public const string coreGuid = "resurak.Core";
         public const string pluginGuid = "resurak.EfficientDevices";
         public const string pluginName = "Efficient Devices";
-        public const string pluginVersion = "0.10";
+        public const string pluginVersion = "0.12";
 
         // Plugin configs
         public static ConfigHandler ConfigHandler;
@@ -22,11 +22,9 @@ namespace EfficientDevices
 
         public static ConfigFloat AirConditioner_MinPower;
         public static ConfigFloat AirConditioner_MaxPower;
-        public static ConfigMinMax AirConditioner_MinMax;
 
         public static ConfigFloat TurboPumpGas_MinPower;
         public static ConfigFloat TurboPumpGas_MaxPower;
-        public static ConfigMinMax TurboPumpGas_MinMax;
 
         // Plugin logger
         internal static ManualLogSource Log;
@@ -62,19 +60,15 @@ namespace EfficientDevices
 
             AirConditioner_MinPower = ConfigHandler.LoadFloat("AirConditioner", "MinPower", "Minimum power draw", 100f);
             AirConditioner_MaxPower = ConfigHandler.LoadFloat("AirConditioner", "MaxPower", "Maximum power draw", 1500f);
-            AirConditioner_MinMax = new ConfigMinMax(ConfigHandler, AirConditioner_MinPower, AirConditioner_MaxPower);
 
             TurboPumpGas_MinPower = ConfigHandler.LoadFloat("TurboPumpGas", "MinPower", "Minimum power draw", 50f);
             TurboPumpGas_MaxPower = ConfigHandler.LoadFloat("TurboPumpGas", "MaxPower", "Maximum power draw", 200f);
-            TurboPumpGas_MinMax = new ConfigMinMax(ConfigHandler, TurboPumpGas_MinPower, TurboPumpGas_MaxPower);
         }
 
         public void Patch()
         {
             Log.LogInfo("Patching");
-
-            Harmony harmony = new Harmony(pluginGuid);
-            harmony.PatchAll();
+            Harmony.CreateAndPatchAll(typeof(ModPatches), pluginGuid);
         }
     }
 }

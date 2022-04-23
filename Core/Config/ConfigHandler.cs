@@ -51,23 +51,5 @@ namespace Core.Config
                 CoreLogger.Info(this.Plugin, $"Loaded {section}.{key}. Value = {value}");
             }
         }
-
-        public bool MinMaxValid(float min, float max)
-        {
-            bool flag1 = min > max;
-            bool flag2 = max < min;
-
-            if (flag1)
-            {
-                CoreLogger.Error(this.Plugin, "Wrong configs. Min is bigger than Max");
-            }
-
-            if (flag2)
-            {
-                CoreLogger.Error(this.Plugin, "Wrong configs. Max is less than Min");
-            }
-
-            return !flag1 && !flag2;
-        }
     }
 }

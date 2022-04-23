@@ -90,15 +90,13 @@
     <Compile Include="Config\ConfigHandler.cs" />
     <Compile Include="Config\ConfigBool.cs" />
     <Compile Include="Config\ConfigFloat.cs" />
-    <Compile Include="Config\ConfigMinMax.cs" />
     <Compile Include="Mod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shared\PowerRange.cs" />
     <Compile Include="Shared\CoreLogger.cs" />
     <Compile Include="Shared\Utils.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Patches\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy /y "$(TargetPath)" "$(SolutionDir)"</PostBuildEvent>

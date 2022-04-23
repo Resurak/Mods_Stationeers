@@ -83,8 +83,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Patches\FurnaceBase_Constructor.cs" />
-    <Compile Include="Patches\FurnaceBase_Smelt.cs" />
+    <Compile Include="ModPatches.cs" />
     <Compile Include="Mod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

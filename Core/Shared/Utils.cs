@@ -4,17 +4,24 @@ namespace Core.Shared
 {
     public static class Utils
     {
-        public static void AssignConfigValue(this ref float value, ConfigMinMax config)
+        public static void AssignPower(this ref float value, PowerRange range, float def = float.MinValue)
         {
-            if (config.Valid)
+            if (range.Valid)
             {
-                if (value < config.Min)
+                if (value < range.Min)
                 {
-                    value = config.Min;
+                    value = range.Min;
                 }
-                else if (value > config.Max)
+                else if (value > range.Max)
                 {
-                    value = config.Max;
+                    value = range.Max;
+                }
+            }
+            else
+            {
+                if (def != float.MinValue)
+                {
+                    value = def;
                 }
             }
         }
