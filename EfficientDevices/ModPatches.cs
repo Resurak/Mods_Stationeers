@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Networks;
+﻿using Assets.Scripts.Atmospherics;
+using Assets.Scripts.Networks;
 using Assets.Scripts.Objects.Electrical;
 using Assets.Scripts.Objects.Pipes;
 using Core.Shared;
@@ -9,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace EfficientDevices
 {
@@ -28,11 +30,119 @@ namespace EfficientDevices
             }
         }
 
+        //[HarmonyPatch(typeof(AirConditioner), nameof(AirConditioner.OnButtonIncrease))]
+        //[HarmonyPostfix]
+        //static void AirConditioner_OnButtonIncrease_Postfix(AirConditioner __instance)
+        //{
+        //    __instance.GoalTemperature += KeyManager.GetButton(KeyMap.QuantityModifier) ? 1 : 10;
+        //}
+
+        //[HarmonyPatch(typeof(AirConditioner), nameof(AirConditioner.OnButtonDecrease))]
+        //[HarmonyPostfix]
+        //static void AirConditioner_OnButtonDecrease_Postfix(AirConditioner __instance)
+        //{
+        //    __instance.GoalTemperature -= KeyManager.GetButton(KeyMap.QuantityModifier) ? 1 : 10;
+        //}
+
+        [HarmonyPatch(typeof(AirConditioner), nameof(AirConditioner.MachineCommand))]
+        [HarmonyPrefix]
+        static bool AirConditioner_MachineCommand_Prefix(AirConditioner __instance, int referenceInt)
+        {
+            __instance.GoalTemperature += referenceInt;
+            return false;
+        }
+
         [HarmonyPatch(typeof(AirConditioner), nameof(AirConditioner.GetUsedPower))]
         [HarmonyPostfix]
         static void AirConditioner_GetUsedPower_Postfix(ref float __result)
         {
-            __result.AssignPower(AirConditioner_PowerRange);
+            if (Mod.AirConditioner_EasyMode.Value)
+            {
+                __result = Mod.AirConditioner_MaxPower.Value;
+            }
+            else
+            {
+                __result.AssignPower(AirConditioner_PowerRange);
+            }
+        }
+
+        [HarmonyPatch(typeof(AirConditioner), nameof(AirConditioner.OnAtmosphericTick))]
+        [HarmonyPrefix]
+        static bool AirConditioner_OnAtmoshpericTick_Prefix(AirConditioner __instance, ref float ____powerUsedDuringTick)
+        {
+            if (!Mod.AirConditioner_EasyMode.Value)
+            {
+                return true;
+            }
+            else
+            {
+                if (__instance.OnOff && __instance.Powered && __instance.InputNetwork != null && __instance.InputNetwork.Atmosphere != null)
+                {
+                    var inputAtm = __instance.InputNetwork.Atmosphere;
+                    var currentPa = inputAtm?.PressureGassesAndLiquidsInPa;
+
+                    if (inputAtm == null || currentPa == null || currentPa < 10f)
+                    {
+                        return false;
+                    }
+
+                    var tempDiff = Math.Abs(inputAtm.Temperature - __instance.GoalTemperature);
+                    var power = 0f;
+
+                    if (tempDiff > 100f)
+                    {
+                        power = (float)currentPa / 2;
+                    }
+                    else if (tempDiff > 50f)
+                    {
+                        power = (float)currentPa / 10;
+                    }
+                    else if (tempDiff > 10f)
+                    {
+                        power = (float)currentPa / 25;
+                    } 
+                    else if (tempDiff > 5f)
+                    {
+                        power = (float)currentPa / 50;
+                    }
+                    else if (tempDiff > 2f)
+                    {
+                        power = (float)currentPa / 100;
+                    }
+                    else if (tempDiff > 0.2f)
+                    {
+                        power = (float)currentPa / 200;
+                    }
+                    else if (tempDiff <= 0.2f && tempDiff > 0.05f)
+                    {
+                        power = (float)currentPa / 500;
+                    }
+                    else
+                    {
+                        __instance.InputNetwork.Atmosphere = inputAtm;
+                        ____powerUsedDuringTick = 1f;
+
+                        return false;
+                    }
+
+                    if (inputAtm.Temperature < __instance.GoalTemperature)
+                    {
+                        inputAtm.GasMixture.AddEnergy(power);
+                    }
+                    else
+                    {
+                        inputAtm.GasMixture.RemoveEnergy(power);
+                    }
+
+                    __instance.InputNetwork.Atmosphere = inputAtm;
+                    ____powerUsedDuringTick = 1f;
+
+                    return false;
+                }
+
+                ____powerUsedDuringTick = 1f;
+                return false;
+            }
         }
 
         [HarmonyPatch(typeof(TurboVolumePump), nameof(TurboVolumePump.GetUsedPower))]
@@ -53,7 +163,14 @@ namespace EfficientDevices
 
             if (device is AirConditioner)
             {
-                powerRequired.AssignPower(AirConditioner_PowerRange);
+                if (Mod.AirConditioner_EasyMode.Value)
+                {
+                    powerRequired = Mod.AirConditioner_MaxPower.Value;
+                }
+                else
+                {
+                    powerRequired.AssignPower(AirConditioner_PowerRange);
+                }
             }
         }
 
@@ -78,7 +195,7 @@ namespace EfficientDevices
             var advanced = Mod.PipeHeater_Advanced.Value;
             var usedPower = Mod.PipeHeater_UsedPower.Value;
             var heatPower = Mod.PipeHeater_HeatPower.Value;
-            var autoOnOff = Mod.PipeHeater_OnOffOnTemp.Value;
+            var autoOnOff = Mod.PipeHeater_AutoOnOff.Value;
             var autoHeatP = Mod.PipeHeater_AutoHeatPower.Value;
             var desiredTemp = Mod.PipeHeater_DesiredTemp.Value + 273f;
 
